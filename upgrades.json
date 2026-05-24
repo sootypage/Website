@@ -1,0 +1,42 @@
+[
+  {
+    "id": "ram-2gb",
+    "name": "+2GB RAM",
+    "kind": "ramGb",
+    "amount": 2,
+    "priceMonthly": 4,
+    "active": true
+  },
+  {
+    "id": "storage-20gb",
+    "name": "+20GB Storage",
+    "kind": "storageGb",
+    "amount": 20,
+    "priceMonthly": 3,
+    "active": true
+  },
+  {
+    "id": "backup-3-slots",
+    "name": "+3 Backup Slots",
+    "kind": "backupSlots",
+    "amount": 3,
+    "priceMonthly": 2,
+    "active": true
+  },
+  {
+    "id": "subdomain-2-slots",
+    "name": "+2 Subdomain Slots",
+    "kind": "subdomainSlots",
+    "amount": 2,
+    "priceMonthly": 2,
+    "active": true
+  },
+  {
+    "id": "ports-2",
+    "name": "+2 Extra Ports",
+    "kind": "extraPorts",
+    "amount": 2,
+    "priceMonthly": 2,
+    "active": true
+  }
+]
