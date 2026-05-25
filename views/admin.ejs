@@ -1,0 +1,152 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<section class="section">
+  <h1>Admin panel</h1>
+  <p class="muted">Create shop plans, upgrades, check orders, reply to support, and approve reviews.</p>
+
+  <div class="admin-grid">
+    <a href="#plans" class="card mini">Plans</a>
+    <a href="#upgrades" class="card mini">Upgrades</a>
+    <a href="#orders" class="card mini">Orders</a>
+    <a href="#support" class="card mini">Support</a>
+    <a href="#reviews" class="card mini">Reviews</a>
+  </div>
+
+  <section id="plans" class="admin-section">
+    <h2>Plans</h2>
+    <div class="card">
+      <form method="post" action="/admin/plans" class="form grid-form">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <label>ID optional<input name="id" placeholder="minecraft-ultra"></label>
+        <label>Name<input name="name" required></label>
+        <label>Type
+          <select name="type" required>
+            <option value="game-server">Game server</option>
+            <option value="vps">VPS</option>
+            <option value="website-hosting">Website hosting</option>
+            <option value="bot-hosting">Discord bot hosting</option>
+          </select>
+        </label>
+        <label>Price monthly AUD<input name="priceMonthly" type="number" step="0.01" required></label>
+        <label>RAM GB<input name="ramGb" type="number"></label>
+        <label>CPU cores<input name="cpuCores" type="number"></label>
+        <label>Storage GB<input name="storageGb" type="number"></label>
+        <label>Backup slots<input name="backupSlots" type="number"></label>
+        <label>Subdomain slots<input name="subdomainSlots" type="number"></label>
+        <label>Extra ports<input name="extraPorts" type="number"></label>
+        <label class="wide">Description<textarea name="description"></textarea></label>
+        <label class="check"><input type="checkbox" name="active" checked> Active</label>
+        <button class="btn">Save plan</button>
+      </form>
+    </div>
+
+    <div class="table-card">
+      <table><thead><tr><th>Name</th><th>Type</th><th>Price</th><th>Resources</th><th></th></tr></thead><tbody>
+      <% plans.forEach(plan => { %>
+        <tr>
+          <td><%= plan.name %></td>
+          <td><%= plan.type %></td>
+          <td>$<%= plan.priceMonthly %>/mo</td>
+          <td><%= plan.ramGb %>GB RAM, <%= plan.cpuCores %> CPU, <%= plan.storageGb %>GB</td>
+          <td><form method="post" action="/admin/plans/<%= plan.id %>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">/delete"><button class="danger">Delete</button></form></td>
+        </tr>
+      <% }) %>
+      </tbody></table>
+    </div>
+  </section>
+
+  <section id="upgrades" class="admin-section">
+    <h2>Upgrades</h2>
+    <div class="card">
+      <form method="post" action="/admin/upgrades" class="form grid-form">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <label>ID optional<input name="id"></label>
+        <label>Name<input name="name" required></label>
+        <label>Kind
+          <select name="kind">
+            <option value="ramGb">RAM GB</option>
+            <option value="cpuCores">CPU cores</option>
+            <option value="storageGb">Storage GB</option>
+            <option value="backupSlots">Backup slots</option>
+            <option value="subdomainSlots">Subdomain slots</option>
+            <option value="extraPorts">Extra ports</option>
+          </select>
+        </label>
+        <label>Amount<input name="amount" type="number" required></label>
+        <label>Price monthly AUD<input name="priceMonthly" type="number" step="0.01" required></label>
+        <label class="check"><input type="checkbox" name="active" checked> Active</label>
+        <button class="btn">Save upgrade</button>
+      </form>
+    </div>
+
+    <div class="table-card">
+      <table><thead><tr><th>Name</th><th>Kind</th><th>Amount</th><th>Price</th><th></th></tr></thead><tbody>
+      <% upgrades.forEach(up => { %>
+        <tr>
+          <td><%= up.name %></td><td><%= up.kind %></td><td><%= up.amount %></td><td>$<%= up.priceMonthly %>/mo</td>
+          <td><form method="post" action="/admin/upgrades/<%= up.id %>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">/delete"><button class="danger">Delete</button></form></td>
+        </tr>
+      <% }) %>
+      </tbody></table>
+    </div>
+  </section>
+
+  <section id="orders" class="admin-section">
+    <h2>Orders</h2>
+    <div class="table-card">
+      <table><thead><tr><th>User</th><th>Plan</th><th>Status</th><th>Panel</th><th>Total</th></tr></thead><tbody>
+      <% orders.forEach(order => { %>
+        <tr>
+          <td><%= order.email %></td>
+          <td><%= order.plan.name %></td>
+          <td><%= order.status %></td>
+          <td><%= order.panelProvisionStatus %></td>
+          <td>$<%= order.totalMonthly %>/mo</td>
+        </tr>
+      <% }) %>
+      </tbody></table>
+    </div>
+  </section>
+
+  <section id="support" class="admin-section">
+    <h2>Support</h2>
+    <div class="grid cards">
+      <% tickets.forEach(ticket => { %>
+        <div class="card">
+          <span class="pill"><%= ticket.status %></span>
+          <h3><%= ticket.subject %></h3>
+          <p><%= ticket.message %></p>
+          <p class="muted"><%= ticket.email %></p>
+          <form method="post" action="/admin/tickets/<%= ticket.id %>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">/reply" class="form">
+            <label>Status<select name="status"><option>open</option><option>waiting</option><option>closed</option></select></label>
+            <label>Reply<textarea name="adminReply"><%= ticket.adminReply %></textarea></label>
+            <button class="btn small">Update</button>
+          </form>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+
+  <section id="reviews" class="admin-section">
+    <h2>Reviews</h2>
+    <div class="grid cards">
+      <% reviews.forEach(review => { %>
+        <div class="card">
+          <p><strong><%= review.username %></strong> · <%= review.rating %> stars</p>
+          <p><%= review.message %></p>
+          <p class="muted">Approved: <%= review.approved ? 'yes' : 'no' %></p>
+          <form class="inline" method="post" action="/admin/reviews/<%= review.id %>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">/approve"><button class="btn small">Approve</button></form>
+          <form class="inline" method="post" action="/admin/reviews/<%= review.id %>
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">/delete"><button class="danger">Delete</button></form>
+        </div>
+      <% }) %>
+    </div>
+  </section>
+</section>
+<%- include('partials/footer') %>

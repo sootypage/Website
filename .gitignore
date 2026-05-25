@@ -1,0 +1,9 @@
+node_modules/
+.env
+npm-debug.log*
+.DS_Store
+
+# Protect private data
+data/users.json
+data/orders.json
+data/tickets.json

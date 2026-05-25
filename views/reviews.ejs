@@ -1,0 +1,37 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+<section class="section">
+  <h1>Feedback & Reviews</h1>
+  <% if (currentUser) { %>
+    <div class="card narrow-card">
+      <h2>Leave feedback</h2>
+      <form method="post" action="/reviews" class="form">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <label>Rating
+          <select name="rating">
+            <option value="5">5 stars</option>
+            <option value="4">4 stars</option>
+            <option value="3">3 stars</option>
+            <option value="2">2 stars</option>
+            <option value="1">1 star</option>
+          </select>
+        </label>
+        <label>Review<textarea name="message" rows="4" required></textarea></label>
+        <button class="btn full">Send review</button>
+      </form>
+    </div>
+  <% } %>
+
+  <div class="grid cards">
+    <% reviews.forEach(review => { %>
+      <div class="card">
+        <div class="stars"><%= '★'.repeat(review.rating) %></div>
+        <p><%= review.message %></p>
+        <p class="muted">— <%= review.username %></p>
+      </div>
+    <% }) %>
+    <% if (!reviews.length) { %><p class="muted">No approved reviews yet.</p><% } %>
+  </div>
+</section>
+<%- include('partials/footer') %>

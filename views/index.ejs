@@ -1,0 +1,56 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+
+<section class="hero">
+  <div>
+    <p class="eyebrow">Game servers, VPS, websites, bots</p>
+    <h1>OutbackServers Hosting plans with automatic panel provisioning.</h1>
+    <p class="hero-text">A clean shop website with login, checkout, user dashboard, admin plan editor, upgrades, support, and panel provisioning.</p>
+    <div class="actions">
+      <a class="btn" href="/shop">View plans</a>
+      <% if (!currentUser) { %><a class="btn ghost" href="/auth/signup">Create account</a><% } %>
+    </div>
+  </div>
+  <div class="hero-card">
+    <h3>Included</h3>
+    <ul>
+      <li>Shop plans from admin</li>
+      <li>RAM, CPU, storage upgrades</li>
+      <li>Backup slots, ports, subdomains</li>
+      <li>Panel account provisioning hook</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>Popular plans</h2>
+    <a href="/shop">See all</a>
+  </div>
+  <div class="grid cards">
+    <% plans.forEach(plan => { %>
+      <article class="card">
+        <span class="pill"><%= plan.type %></span>
+        <h3><%= plan.name %></h3>
+        <p><%= plan.description %></p>
+        <div class="price">$<%= plan.priceMonthly %><span>/mo AUD</span></div>
+        <p class="muted"><%= plan.ramGb %>GB RAM · <%= plan.cpuCores %> CPU · <%= plan.storageGb %>GB storage</p>
+        <a class="btn full" href="/shop/checkout/<%= plan.id %>">Buy now</a>
+      </article>
+    <% }) %>
+  </div>
+</section>
+
+<section class="section split">
+  <div class="card">
+    <h2>For customers</h2>
+    <p>Customers can sign up, buy servers, add upgrades, open support tickets, and see their orders from the dashboard.</p>
+  </div>
+  <div class="card">
+    <h2>For admins</h2>
+    <p>Admins can create plans, manage upgrades, approve reviews, check orders, and reply to tickets.</p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
