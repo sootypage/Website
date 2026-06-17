@@ -8,30 +8,51 @@
     <p><%= plan.description %></p>
     <p class="muted">Buying as <strong><%= currentUser.username %></strong> · <%= currentUser.email %></p>
 
-    <form method="post" action="/shop/checkout/<%= plan.id %>" class="form">
-      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-      <h3>📦 Base plan</h3>
-      <div class="summary">
-        <span>💾 <%= plan.ramGb %>GB RAM</span>
-        <span>⚡ <%= plan.cpuCores %> CPU</span>
-        <span>📦 <%= plan.storageGb %>GB storage</span>
-        <span>🔄 <%= plan.backupSlots %> backup slots</span>
-        <span>🌐 <%= plan.subdomainSlots %> subdomains</span>
-        <span>🔌 <%= plan.extraPorts %> ports</span>
-      </div>
+    <div class="config-summary">
+      <h3>🎮 Server Configuration</h3>
+      <p><strong>Server Name:</strong> <%= serverConfig.serverName %></p>
+      <p><strong>Type:</strong> <%= serverConfig.variantName %></p>
+      <p><strong>Location:</strong> <%= selectedLocation.name %> (<%= selectedLocation.description %>)
+        <% if (selectedLocation.priceMonthly > 0) { %>
+          <span class="price">+$<%= selectedLocation.priceMonthly %>/mo</span>
+        <% } %>
+      </p>
+    </div>
 
-      <h3>➕ Add upgrades</h3>
+    <h3>📦 Base Plan Resources</h3>
+    <div class="summary">
+      <span>💾 <%= resources.ramGb %>GB RAM</span>
+      <span>⚡ <%= resources.cpuCores %> CPU</span>
+      <span>📦 <%= resources.storageGb %>GB storage</span>
+      <span>🔄 <%= resources.backupSlots %> backup slots</span>
+      <span>🌐 <%= resources.subdomainSlots %> subdomains</span>
+      <span>🔌 <%= resources.extraPorts %> ports</span>
+    </div>
+
+    <% if (selectedUpgrades && selectedUpgrades.length > 0) { %>
+      <h3>➕ Selected Upgrades</h3>
       <div class="upgrade-list">
-        <% upgrades.forEach(up => { %>
-          <label class="upgrade">
-            <input type="checkbox" name="upgrades" value="<%= up.id %>">
+        <% selectedUpgrades.forEach(up => { %>
+          <div class="upgrade selected">
             <span><strong><%= up.name %></strong><small>+$<%= up.priceMonthly %>/mo</small></span>
-          </label>
+          </div>
         <% }) %>
       </div>
+    <% } %>
 
+    <div class="total-price">
+      <h3>Total Monthly Cost</h3>
+      <div class="price">$<%= totalMonthly %><span>/mo AUD</span></div>
+    </div>
+
+    <form method="post" action="/shop/checkout/<%= plan.id %>" class="form">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <button class="btn full">💳 Pay / Create order</button>
     </form>
+
+    <p class="muted text-center">
+      <a href="/shop/configure/<%= plan.id %>">← Back to configuration</a>
+    </p>
   </div>
 </section>
 <%- include('partials/footer') %>

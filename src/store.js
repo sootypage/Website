@@ -10,6 +10,7 @@ const defaults = {
       id: 'minecraft-starter',
       name: 'Minecraft Starter',
       type: 'game-server',
+      gameType: 'minecraft',
       description: 'Good for a small SMP or friends server.',
       ramGb: 4,
       cpuCores: 2,
@@ -24,6 +25,7 @@ const defaults = {
       id: 'minecraft-pro',
       name: 'Minecraft Pro',
       type: 'game-server',
+      gameType: 'minecraft',
       description: 'Better for plugins, modpacks, and more players.',
       ramGb: 8,
       cpuCores: 4,
@@ -38,6 +40,7 @@ const defaults = {
       id: 'discord-bot-hosting',
       name: 'Discord Bot Hosting',
       type: 'bot-hosting',
+      gameType: 'discord-bot',
       description: 'Node.js Discord bot hosting with console access.',
       ramGb: 1,
       cpuCores: 1,
@@ -52,6 +55,7 @@ const defaults = {
       id: 'vps-starter',
       name: 'VPS Starter',
       type: 'vps',
+      gameType: 'vps',
       description: 'Entry VPS for small websites, bots, and light services.',
       ramGb: 2,
       cpuCores: 1,
@@ -66,6 +70,7 @@ const defaults = {
       id: 'vps-pro',
       name: 'VPS Pro',
       type: 'vps',
+      gameType: 'vps',
       description: 'More power for panels, websites, bots, and game tools.',
       ramGb: 8,
       cpuCores: 4,
@@ -83,6 +88,51 @@ const defaults = {
     { id: 'backup-3-slots', name: '+3 Backup Slots', kind: 'backupSlots', amount: 3, priceMonthly: 2, active: true },
     { id: 'subdomain-2-slots', name: '+2 Subdomain Slots', kind: 'subdomainSlots', amount: 2, priceMonthly: 2, active: true },
     { id: 'ports-2', name: '+2 Extra Ports', kind: 'extraPorts', amount: 2, priceMonthly: 2, active: true }
+  ],
+  serverTypes: [
+    {
+      id: 'minecraft',
+      name: 'Minecraft',
+      variants: [
+        { id: 'paper', name: 'Paper', description: 'High performance Minecraft server' },
+        { id: 'forge', name: 'Forge', description: 'Modded Minecraft server' },
+        { id: 'fabric', name: 'Fabric', description: 'Lightweight modded Minecraft' },
+        { id: 'neoforge', name: 'NeoForge', description: 'Modern modded Minecraft' },
+        { id: 'bedrock', name: 'Bedrock', description: 'Minecraft Bedrock Edition' }
+      ]
+    },
+    {
+      id: 'discord-bot',
+      name: 'Discord Bot',
+      variants: [
+        { id: 'nodejs', name: 'Node.js', description: 'JavaScript/TypeScript bot' },
+        { id: 'python', name: 'Python', description: 'Python bot with discord.py' }
+      ]
+    },
+    {
+      id: 'vps',
+      name: 'VPS',
+      variants: [
+        { id: 'ubuntu', name: 'Ubuntu', description: 'Ubuntu Linux' },
+        { id: 'debian', name: 'Debian', description: 'Debian Linux' },
+        { id: 'centos', name: 'CentOS', description: 'CentOS Linux' }
+      ]
+    },
+    {
+      id: 'website-hosting',
+      name: 'Website Hosting',
+      variants: [
+        { id: 'nginx', name: 'Nginx', description: 'Nginx web server' },
+        { id: 'apache', name: 'Apache', description: 'Apache web server' }
+      ]
+    }
+  ],
+  locations: [
+    { id: 'us-east', name: 'US East', description: 'Virginia, USA', priceMonthly: 0, active: true },
+    { id: 'us-west', name: 'US West', description: 'California, USA', priceMonthly: 2, active: true },
+    { id: 'eu-central', name: 'EU Central', description: 'Frankfurt, Germany', priceMonthly: 3, active: true },
+    { id: 'asia-east', name: 'Asia East', description: 'Singapore', priceMonthly: 4, active: true },
+    { id: 'australia', name: 'Australia', description: 'Sydney, Australia', priceMonthly: 5, active: true }
   ],
   orders: [],
   tickets: [],

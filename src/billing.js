@@ -1,15 +1,25 @@
 const Stripe = require('stripe');
 const { getStore } = require('./store');
 
-function calculateOrder(planId, upgradeIds = []) {
+function calculateOrder(planId, upgradeIds = [], locationId = null) {
   const plans = getStore('plans');
   const upgrades = getStore('upgrades');
+  const locations = getStore('locations');
 
   const plan = plans.find(p => p.id === planId && p.active);
   if (!plan) throw new Error('Plan not found.');
 
   const selectedUpgrades = upgrades.filter(u => upgradeIds.includes(u.id) && u.active);
-  const totalMonthly = plan.priceMonthly + selectedUpgrades.reduce((sum, u) => sum + Number(u.priceMonthly || 0), 0);
+  let totalMonthly = plan.priceMonthly + selectedUpgrades.reduce((sum, u) => sum + Number(u.priceMonthly || 0), 0);
+
+  // Add location cost if specified
+  let selectedLocation = null;
+  if (locationId) {
+    selectedLocation = locations.find(l => l.id === locationId && l.active);
+    if (selectedLocation) {
+      totalMonthly += Number(selectedLocation.priceMonthly || 0);
+    }
+  }
 
   const resources = {
     ramGb: Number(plan.ramGb || 0),
@@ -26,7 +36,7 @@ function calculateOrder(planId, upgradeIds = []) {
     }
   }
 
-  return { plan, selectedUpgrades, totalMonthly, resources };
+  return { plan, selectedUpgrades, selectedLocation, totalMonthly, resources };
 }
 
 async function createStripeSession({ orderId, user, plan, upgrades, totalMonthly }) {

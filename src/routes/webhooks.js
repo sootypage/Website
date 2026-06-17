@@ -36,7 +36,8 @@ router.post('/stripe', async (req, res) => {
             plan: order.plan,
             upgrades: order.upgrades,
             resources: order.resources,
-            totalMonthly: order.totalMonthly
+            totalMonthly: order.totalMonthly,
+            serverConfig: order.serverConfig
           };
 
           try {

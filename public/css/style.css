@@ -708,3 +708,73 @@ tr:last-child td {
     font-size: 1.5rem;
   }
 }
+
+/* Configuration Summary */
+.config-summary {
+  background: rgba(110, 231, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(110, 231, 255, 0.2);
+}
+
+.config-summary h3 {
+  margin: 0 0 1rem 0;
+  color: var(--brand);
+  font-size: 1.1rem;
+}
+
+.config-summary p {
+  margin: 0.5rem 0;
+  color: var(--muted);
+}
+
+.config-summary strong {
+  color: var(--text);
+}
+
+/* Total Price */
+.total-price {
+  text-align: center;
+  padding: 2rem;
+  background: rgba(124, 58, 237, 0.05);
+  border-radius: 12px;
+  margin: 2rem 0;
+  border: 1px solid rgba(124, 58, 237, 0.2);
+}
+
+.total-price h3 {
+  margin: 0 0 0.75rem 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.total-price .price {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0;
+  background: linear-gradient(135deg, var(--brand), var(--brand2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.total-price .price span {
+  font-size: 1rem;
+  color: var(--muted);
+  font-weight: 500;
+  -webkit-text-fill-color: var(--muted);
+}
+
+/* Text Center */
+.text-center {
+  text-align: center;
+}
+
+/* Selected Upgrade */
+.upgrade.selected {
+  border-color: var(--brand);
+  background: rgba(110, 231, 255, 0.1);
+}

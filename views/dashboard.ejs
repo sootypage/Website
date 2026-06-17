@@ -14,14 +14,18 @@
   <div class="section-head"><h2>🖥️ Your servers/orders</h2><a class="btn small" href="/shop">🛒 Buy another</a></div>
   <div class="table-card">
     <table>
-      <thead><tr><th>Plan</th><th>Status</th><th>Panel</th><th>Resources</th><th>Price</th></tr></thead>
+      <thead><tr><th>Server</th><th>Plan</th><th>Status</th><th>Panel</th><th>Price</th></tr></thead>
       <tbody>
       <% orders.forEach(order => { %>
         <tr>
+          <td>
+            <strong><%= order.serverConfig?.serverName || 'Unnamed' %></strong><br>
+            <small class="muted"><%= order.serverConfig?.variantName || order.plan.type %></small><br>
+            <small class="muted">🌍 <%= order.serverConfig?.locationName || 'Unknown' %></small>
+          </td>
           <td><%= order.plan.name %></td>
           <td><span class="pill"><%= order.status %></span></td>
           <td><%= order.panelProvisionStatus %></td>
-          <td><%= order.resources.ramGb %>GB RAM, <%= order.resources.cpuCores %> CPU, <%= order.resources.storageGb %>GB</td>
           <td>$<%= order.totalMonthly %>/mo</td>
         </tr>
       <% }) %>

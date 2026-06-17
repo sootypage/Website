@@ -1,0 +1,106 @@
+<%- include('partials/head') %>
+<%- include('partials/nav') %>
+<%- include('partials/flash') %>
+<section class="section narrow">
+  <h1>⚙️ Configure Your Server</h1>
+  <div class="card">
+    <h2><%= plan.name %></h2>
+    <p><%= plan.description %></p>
+    
+    <form method="post" action="/shop/configure/<%= plan.id %>" class="form">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      
+      <label>🖥️ Server Name
+        <input name="serverName" type="text" required placeholder="My Awesome Server" maxlength="50">
+      </label>
+
+      <% if (plan.gameType === 'minecraft') { %>
+        <label>🎮 Minecraft Type
+          <select name="serverVariant" required>
+            <option value="">Select a type...</option>
+            <% serverTypes.find(st => st.id === 'minecraft').variants.forEach(variant => { %>
+              <option value="<%= variant.id %>"><%= variant.name %> - <%= variant.description %></option>
+            <% }) %>
+          </select>
+        </label>
+      <% } else if (plan.gameType === 'discord-bot') { %>
+        <label>🤖 Bot Runtime
+          <select name="serverVariant" required>
+            <option value="">Select a runtime...</option>
+            <% serverTypes.find(st => st.id === 'discord-bot').variants.forEach(variant => { %>
+              <option value="<%= variant.id %>"><%= variant.name %> - <%= variant.description %></option>
+            <% }) %>
+          </select>
+        </label>
+      <% } else if (plan.gameType === 'vps') { %>
+        <label>🖥️ Operating System
+          <select name="serverVariant" required>
+            <option value="">Select an OS...</option>
+            <% serverTypes.find(st => st.id === 'vps').variants.forEach(variant => { %>
+              <option value="<%= variant.id %>"><%= variant.name %> - <%= variant.description %></option>
+            <% }) %>
+          </select>
+        </label>
+      <% } else if (plan.gameType === 'website-hosting') { %>
+        <label>🌐 Web Server
+          <select name="serverVariant" required>
+            <option value="">Select a web server...</option>
+            <% serverTypes.find(st => st.id === 'website-hosting').variants.forEach(variant => { %>
+              <option value="<%= variant.id %>"><%= variant.name %> - <%= variant.description %></option>
+            <% }) %>
+          </select>
+        </label>
+      <% } else { %>
+        <label>🔧 Server Type
+          <select name="serverVariant" required>
+            <option value="">Select a type...</option>
+            <% serverTypes.forEach(st => { %>
+              <% st.variants.forEach(variant => { %>
+                <option value="<%= variant.id %>"><%= st.name %> - <%= variant.name %></option>
+              <% }) %>
+            <% }) %>
+          </select>
+        </label>
+      <% } %>
+
+      <label>🌍 Server Location
+        <select name="locationId" required>
+          <option value="">Select a location...</option>
+          <% locations.filter(l => l.active).forEach(location => { %>
+            <option value="<%= location.id %>">
+              <%= location.name %> (<%= location.description %>)
+              <% if (location.priceMonthly > 0) { %>
+                +$<%= location.priceMonthly %>/mo
+              <% } else { %>
+                No extra cost
+              <% } %>
+            </option>
+          <% }) %>
+        </select>
+      </label>
+
+      <h3>📦 Base Plan Resources</h3>
+      <div class="summary">
+        <span>💾 <%= plan.ramGb %>GB RAM</span>
+        <span>⚡ <%= plan.cpuCores %> CPU</span>
+        <span>📦 <%= plan.storageGb %>GB storage</span>
+        <span>🔄 <%= plan.backupSlots %> backup slots</span>
+        <span>🌐 <%= plan.subdomainSlots %> subdomains</span>
+        <span>🔌 <%= plan.extraPorts %> ports</span>
+      </div>
+
+      <h3>➕ Add Upgrades (Optional)</h3>
+      <div class="upgrade-list">
+        <% upgrades.filter(u => u.active).forEach(up => { %>
+          <label class="upgrade">
+            <input type="checkbox" name="upgrades" value="<%= up.id %>">
+            <span><strong><%= up.name %></strong><small>+$<%= up.priceMonthly %>/mo</small></span>
+          </label>
+        <% }) %>
+      </div>
+
+      <button class="btn full">➡️ Continue to Payment</button>
+    </form>
+  </div>
+</section>
+<%- include('partials/footer') %>

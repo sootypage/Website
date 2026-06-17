@@ -12,6 +12,8 @@ router.get('/', (req, res) => {
     title: 'Admin',
     plans: getStore('plans'),
     upgrades: getStore('upgrades'),
+    serverTypes: getStore('serverTypes'),
+    locations: getStore('locations'),
     orders: getStore('orders').slice().reverse(),
     tickets: getStore('tickets').slice().reverse(),
     reviews: getStore('reviews').slice().reverse(),
@@ -127,6 +129,74 @@ router.post('/reviews/:id/delete', (req, res) => {
   saveStore('reviews', reviews);
   req.flash('success', 'Review deleted.');
   res.redirect('/admin#reviews');
+});
+
+router.post('/server-types', (req, res) => {
+  try {
+    const serverTypes = getStore('serverTypes');
+    const id = req.body.id || req.body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+    let variants = [];
+    try {
+      variants = JSON.parse(req.body.variants);
+    } catch (err) {
+      req.flash('error', 'Invalid JSON format for variants.');
+      return res.redirect('/admin#server-types');
+    }
+
+    const serverType = {
+      id,
+      name: req.body.name,
+      variants,
+      active: req.body.active === 'on'
+    };
+
+    const index = serverTypes.findIndex(st => st.id === id);
+    if (index >= 0) serverTypes[index] = serverType;
+    else serverTypes.push(serverType);
+
+    saveStore('serverTypes', serverTypes);
+    req.flash('success', 'Server type saved.');
+    res.redirect('/admin#server-types');
+  } catch (err) {
+    req.flash('error', err.message);
+    res.redirect('/admin#server-types');
+  }
+});
+
+router.post('/server-types/:id/delete', (req, res) => {
+  const serverTypes = getStore('serverTypes').filter(st => st.id !== req.params.id);
+  saveStore('serverTypes', serverTypes);
+  req.flash('success', 'Server type deleted.');
+  res.redirect('/admin#server-types');
+});
+
+router.post('/locations', (req, res) => {
+  const locations = getStore('locations');
+  const id = req.body.id || req.body.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+  const location = {
+    id,
+    name: req.body.name,
+    description: req.body.description,
+    priceMonthly: Number(req.body.priceMonthly || 0),
+    active: req.body.active === 'on'
+  };
+
+  const index = locations.findIndex(l => l.id === id);
+  if (index >= 0) locations[index] = location;
+  else locations.push(location);
+
+  saveStore('locations', locations);
+  req.flash('success', 'Location saved.');
+  res.redirect('/admin#locations');
+});
+
+router.post('/locations/:id/delete', (req, res) => {
+  const locations = getStore('locations').filter(l => l.id !== req.params.id);
+  saveStore('locations', locations);
+  req.flash('success', 'Location deleted.');
+  res.redirect('/admin#locations');
 });
 
 module.exports = router;

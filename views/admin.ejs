@@ -9,6 +9,8 @@
   <div class="admin-grid">
     <a href="#plans" class="card mini">📦 Plans</a>
     <a href="#upgrades" class="card mini">⚡ Upgrades</a>
+    <a href="#server-types" class="card mini">🎮 Server Types</a>
+    <a href="#locations" class="card mini">🌍 Locations</a>
     <a href="#orders" class="card mini">🛒 Orders</a>
     <a href="#support" class="card mini">🎫 Support</a>
     <a href="#reviews" class="card mini">⭐ Reviews</a>
@@ -141,6 +143,64 @@
           <form class="inline" method="post" action="/admin/reviews/<%= review.id %>/delete"><input type="hidden" name="_csrf" value="<%= csrfToken %>"><button class="danger">🗑️ Delete</button></form>
         </div>
       <% }) %>
+    </div>
+  </section>
+
+  <section id="server-types" class="admin-section">
+    <h2>🎮 Server Types</h2>
+    <div class="card">
+      <form method="post" action="/admin/server-types" class="form grid-form">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <label>ID<input name="id" required placeholder="minecraft"></label>
+        <label>Name<input name="name" required placeholder="Minecraft"></label>
+        <label class="wide">Variants (JSON format)<textarea name="variants" rows="6" required placeholder='[{"id":"paper","name":"Paper","description":"High performance"}]'></textarea></label>
+        <label class="check"><input type="checkbox" name="active" checked> Active</label>
+        <button class="btn">💾 Save server type</button>
+      </form>
+    </div>
+
+    <div class="table-card">
+      <table><thead><tr><th>ID</th><th>Name</th><th>Variants</th><th>Active</th><th></th></tr></thead><tbody>
+      <% serverTypes.forEach(st => { %>
+        <tr>
+          <td><%= st.id %></td>
+          <td><%= st.name %></td>
+          <td><%= st.variants.length %> variants</td>
+          <td><%= st.active ? 'yes' : 'no' %></td>
+          <td><form method="post" action="/admin/server-types/<%= st.id %>/delete"><input type="hidden" name="_csrf" value="<%= csrfToken %>"><button class="danger">🗑️ Delete</button></form></td>
+        </tr>
+      <% }) %>
+      </tbody></table>
+    </div>
+  </section>
+
+  <section id="locations" class="admin-section">
+    <h2>🌍 Locations</h2>
+    <div class="card">
+      <form method="post" action="/admin/locations" class="form grid-form">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <label>ID<input name="id" required placeholder="us-east"></label>
+        <label>Name<input name="name" required placeholder="US East"></label>
+        <label>Description<input name="description" required placeholder="Virginia, USA"></label>
+        <label>Extra monthly cost AUD<input name="priceMonthly" type="number" step="0.01" value="0"></label>
+        <label class="check"><input type="checkbox" name="active" checked> Active</label>
+        <button class="btn">💾 Save location</button>
+      </form>
+    </div>
+
+    <div class="table-card">
+      <table><thead><tr><th>ID</th><th>Name</th><th>Description</th><th>Extra Cost</th><th>Active</th><th></th></tr></thead><tbody>
+      <% locations.forEach(loc => { %>
+        <tr>
+          <td><%= loc.id %></td>
+          <td><%= loc.name %></td>
+          <td><%= loc.description %></td>
+          <td><%= loc.priceMonthly > 0 ? '$' + loc.priceMonthly + '/mo' : 'None' %></td>
+          <td><%= loc.active ? 'yes' : 'no' %></td>
+          <td><form method="post" action="/admin/locations/<%= loc.id %>/delete"><input type="hidden" name="_csrf" value="<%= csrfToken %>"><button class="danger">🗑️ Delete</button></form></td>
+        </tr>
+      <% }) %>
+      </tbody></table>
     </div>
   </section>
 </section>
