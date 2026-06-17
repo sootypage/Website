@@ -2,7 +2,7 @@
 <%- include('partials/nav') %>
 <%- include('partials/flash') %>
 <section class="section">
-  <h1>Shop</h1>
+  <h1>🛒 Shop</h1>
   <p class="muted">Pick a plan. You must be logged in before checkout.</p>
   <div class="grid cards">
     <% plans.forEach(plan => { %>
@@ -12,14 +12,14 @@
         <p><%= plan.description %></p>
         <div class="price">$<%= plan.priceMonthly %><span>/mo AUD</span></div>
         <ul class="clean">
-          <li><%= plan.ramGb %>GB RAM</li>
-          <li><%= plan.cpuCores %> CPU cores</li>
-          <li><%= plan.storageGb %>GB storage</li>
-          <li><%= plan.backupSlots %> backup slots</li>
-          <li><%= plan.subdomainSlots %> subdomain slots</li>
-          <li><%= plan.extraPorts %> extra ports</li>
+          <li>💾 <%= plan.ramGb %>GB RAM</li>
+          <li>⚡ <%= plan.cpuCores %> CPU cores</li>
+          <li>📦 <%= plan.storageGb %>GB storage</li>
+          <li>🔄 <%= plan.backupSlots %> backup slots</li>
+          <li>🌐 <%= plan.subdomainSlots %> subdomain slots</li>
+          <li>🔌 <%= plan.extraPorts %> extra ports</li>
         </ul>
-        <a class="btn full" href="/shop/checkout/<%= plan.id %>">Checkout</a>
+        <a class="btn full" href="/shop/checkout/<%= plan.id %>">🛒 Checkout</a>
       </article>
     <% }) %>
   </div>

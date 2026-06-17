@@ -1,0 +1,11 @@
+[
+  {
+    "id": "sOD2WnqDkPRkmUiqVtGwo",
+    "username": "admin",
+    "email": "admin@example.com",
+    "passwordHash": "$2a$12$hORZU6yQZcAzcgLHYLXX6.jpYzMjDTz6kJKM9NpqiSzIEopgtAMum",
+    "panelPasswordEnc": "83810d01aa94f1d47067f548:76602b833b8321cffd2393ee5e59c59d:15d7ca14f0b5f18d5ae266b7",
+    "role": "admin",
+    "createdAt": "2026-06-17T02:08:03.106Z"
+  }
+]

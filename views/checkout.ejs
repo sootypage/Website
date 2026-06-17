@@ -2,25 +2,25 @@
 <%- include('partials/nav') %>
 <%- include('partials/flash') %>
 <section class="section narrow">
-  <h1>Checkout</h1>
+  <h1>🛒 Checkout</h1>
   <div class="card">
     <h2><%= plan.name %></h2>
     <p><%= plan.description %></p>
     <p class="muted">Buying as <strong><%= currentUser.username %></strong> · <%= currentUser.email %></p>
 
-    <form method="post" action="/shop/checkout/<%= plan.id %>
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">" class="form">
-      <h3>Base plan</h3>
+    <form method="post" action="/shop/checkout/<%= plan.id %>" class="form">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+      <h3>📦 Base plan</h3>
       <div class="summary">
-        <span><%= plan.ramGb %>GB RAM</span>
-        <span><%= plan.cpuCores %> CPU</span>
-        <span><%= plan.storageGb %>GB storage</span>
-        <span><%= plan.backupSlots %> backup slots</span>
-        <span><%= plan.subdomainSlots %> subdomains</span>
-        <span><%= plan.extraPorts %> ports</span>
+        <span>💾 <%= plan.ramGb %>GB RAM</span>
+        <span>⚡ <%= plan.cpuCores %> CPU</span>
+        <span>📦 <%= plan.storageGb %>GB storage</span>
+        <span>🔄 <%= plan.backupSlots %> backup slots</span>
+        <span>🌐 <%= plan.subdomainSlots %> subdomains</span>
+        <span>🔌 <%= plan.extraPorts %> ports</span>
       </div>
 
-      <h3>Add upgrades</h3>
+      <h3>➕ Add upgrades</h3>
       <div class="upgrade-list">
         <% upgrades.forEach(up => { %>
           <label class="upgrade">
@@ -30,7 +30,7 @@
         <% }) %>
       </div>
 
-      <button class="btn full">Pay / Create order</button>
+      <button class="btn full">💳 Pay / Create order</button>
     </form>
   </div>
 </section>

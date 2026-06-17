@@ -2,23 +2,23 @@
 <%- include('partials/nav') %>
 <%- include('partials/flash') %>
 <section class="section">
-  <h1>Feedback & Reviews</h1>
+  <h1>⭐ Feedback & Reviews</h1>
   <% if (currentUser) { %>
     <div class="card narrow-card">
-      <h2>Leave feedback</h2>
+      <h2>✍️ Leave feedback</h2>
       <form method="post" action="/reviews" class="form">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-        <label>Rating
+        <label>⭐ Rating
           <select name="rating">
-            <option value="5">5 stars</option>
-            <option value="4">4 stars</option>
-            <option value="3">3 stars</option>
-            <option value="2">2 stars</option>
-            <option value="1">1 star</option>
+            <option value="5">⭐⭐⭐⭐⭐ 5 stars</option>
+            <option value="4">⭐⭐⭐⭐ 4 stars</option>
+            <option value="3">⭐⭐⭐ 3 stars</option>
+            <option value="2">⭐⭐ 2 stars</option>
+            <option value="1">⭐ 1 star</option>
           </select>
         </label>
-        <label>Review<textarea name="message" rows="4" required></textarea></label>
-        <button class="btn full">Send review</button>
+        <label>💬 Review<textarea name="message" rows="4" required></textarea></label>
+        <button class="btn full">📤 Send review</button>
       </form>
     </div>
   <% } %>

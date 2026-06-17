@@ -2,16 +2,16 @@
 <%- include('partials/nav') %>
 <%- include('partials/flash') %>
 <section class="section">
-  <h1>Dashboard</h1>
+  <h1>📊 Dashboard</h1>
   <p class="muted">Welcome back, <%= currentUser.username %>.</p>
 
   <div class="grid cards">
-    <div class="card stat"><span><%= orders.length %></span><p>Orders</p></div>
-    <div class="card stat"><span><%= tickets.length %></span><p>Support tickets</p></div>
-    <div class="card stat"><span><%= currentUser.role %></span><p>Role</p></div>
+    <div class="card stat"><span><%= orders.length %></span><p>🛒 Orders</p></div>
+    <div class="card stat"><span><%= tickets.length %></span><p>🎫 Support tickets</p></div>
+    <div class="card stat"><span><%= currentUser.role %></span><p>👤 Role</p></div>
   </div>
 
-  <div class="section-head"><h2>Your servers/orders</h2><a class="btn small" href="/shop">Buy another</a></div>
+  <div class="section-head"><h2>🖥️ Your servers/orders</h2><a class="btn small" href="/shop">🛒 Buy another</a></div>
   <div class="table-card">
     <table>
       <thead><tr><th>Plan</th><th>Status</th><th>Panel</th><th>Resources</th><th>Price</th></tr></thead>
@@ -30,7 +30,7 @@
     </table>
   </div>
 
-  <div class="section-head"><h2>Your support tickets</h2><a class="btn small ghost" href="/support">Open ticket</a></div>
+  <div class="section-head"><h2>🎫 Your support tickets</h2><a class="btn small ghost" href="/support">✉️ Open ticket</a></div>
   <div class="grid cards">
     <% tickets.forEach(ticket => { %>
       <div class="card">

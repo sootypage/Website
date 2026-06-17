@@ -2,17 +2,17 @@
 <%- include('partials/nav') %>
 <%- include('partials/flash') %>
 <section class="section narrow">
-  <h1>Support</h1>
+  <h1>🎫 Support</h1>
   <div class="card">
     <form method="post" action="/support" class="form">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-      <label>Subject<input name="subject" required></label>
-      <label>Message<textarea name="message" rows="5" required></textarea></label>
-      <button class="btn full">Send ticket</button>
+      <label>📝 Subject<input name="subject" required></label>
+      <label>💬 Message<textarea name="message" rows="5" required></textarea></label>
+      <button class="btn full">📤 Send ticket</button>
     </form>
   </div>
 
-  <h2>Your tickets</h2>
+  <h2>📋 Your tickets</h2>
   <div class="grid cards">
     <% tickets.forEach(ticket => { %>
       <div class="card">
